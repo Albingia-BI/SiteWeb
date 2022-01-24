@@ -1,0 +1,54 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="ALB_APPModelStoreContainer" CdmEntityContainer="ALB_APPEntities">
+    <FunctionImportMapping FunctionImportName="Mise_A_Jour_Apres_Validation" FunctionName="ALB_APPModel.Store.Mise_A_Jour_Apres_Validation" />
+    <EntitySetMapping Name="IND_COLLABORATEUR">
+      <EntityTypeMapping TypeName="ALB_APPModel.IND_COLLABORATEUR">
+        <MappingFragment StoreEntitySet="IND_COLLABORATEUR">
+          <ScalarProperty Name="COL_TRI" ColumnName="COL_TRI" />
+          <ScalarProperty Name="indicateur" ColumnName="indicateur" />
+          <ScalarProperty Name="COL_LIBELLE_COURT" ColumnName="COL_LIBELLE_COURT" />
+          <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+          <ScalarProperty Name="COL_ADRESSE_MAIL" ColumnName="COL_ADRESSE_MAIL" />
+          <ScalarProperty Name="COL_PRENOM" ColumnName="COL_PRENOM" />
+          <ScalarProperty Name="COL_NOM" ColumnName="COL_NOM" />
+          <ScalarProperty Name="COL_EQUIPE" ColumnName="COL_EQUIPE" />
+          <ScalarProperty Name="COL_SERVICE" ColumnName="COL_SERVICE" />
+          <ScalarProperty Name="COL_BRANCHE" ColumnName="COL_BRANCHE" />
+          <ScalarProperty Name="COL_ID" ColumnName="COL_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IND_SUJET">
+      <EntityTypeMapping TypeName="ALB_APPModel.IND_SUJET">
+        <MappingFragment StoreEntitySet="IND_SUJET">
+          <ScalarProperty Name="COL_SERVICE" ColumnName="COL_SERVICE" />
+          <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+          <ScalarProperty Name="SUJ_TRI" ColumnName="SUJ_TRI" />
+          <ScalarProperty Name="SUJ_BRANCHE" ColumnName="SUJ_BRANCHE" />
+          <ScalarProperty Name="SUJ_LIBELLE" ColumnName="SUJ_LIBELLE" />
+          <ScalarProperty Name="SUJ_ID" ColumnName="SUJ_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="IND_COMPTAGE_TACHE">
+      <EntityTypeMapping TypeName="ALB_APPModel.IND_COMPTAGE_TACHE">
+        <MappingFragment StoreEntitySet="IND_COMPTAGE_TACHE">
+          <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+          <ScalarProperty Name="ICT_MODIFICATEUR" ColumnName="ICT_MODIFICATEUR" />
+          <ScalarProperty Name="ICT_CREATEUR" ColumnName="ICT_CREATEUR" />
+          <ScalarProperty Name="ICT_DATE_MODIFICATION" ColumnName="ICT_DATE_MODIFICATION" />
+          <ScalarProperty Name="ICT_DATE_CREATION" ColumnName="ICT_DATE_CREATION" />
+          <ScalarProperty Name="ICT_SORTIE" ColumnName="ICT_SORTIE" />
+          <ScalarProperty Name="ICT_ENTREE" ColumnName="ICT_ENTREE" />
+          <ScalarProperty Name="ICT_STOCK_FINAL" ColumnName="ICT_STOCK_FINAL" />
+          <ScalarProperty Name="ICT_STOCK_INITIAL" ColumnName="ICT_STOCK_INITIAL" />
+          <ScalarProperty Name="ICT_DATE" ColumnName="ICT_DATE" />
+          <ScalarProperty Name="ICT_ID_SUJET" ColumnName="ICT_ID_SUJET" />
+          <ScalarProperty Name="ICT_ID_COLLABORATEUR" ColumnName="ICT_ID_COLLABORATEUR" />
+          <ScalarProperty Name="ICT_ID" ColumnName="ICT_ID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

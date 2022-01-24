@@ -1,0 +1,113 @@
+﻿@model AlbingiaSiteWebBI.Models.ModelIndemnisation
+@{
+    ViewData["Title"] = Model.Titre;
+}
+
+<h2>@Model.Titre</h2>
+<h1 style="font-size:15px; border-bottom-right-radius:inherit">
+    Collaborateur(trice) :
+    <span style="font-size: 19px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:dimgrey">@(Model.PrenomCollaborateur + " " + Model.NomCollaborateur)</span>
+    &emsp;
+    Date :
+    <span style="font-size: 19px; font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif; color:dimgrey">@(Model.DateModif.ToShortDateString())</span>
+</h1>
+@using (Ajax.BeginForm("Create", "Indemnisation", new AjaxOptions
+{
+    HttpMethod = "POST",
+    OnSuccess = "ShowAlert('success', true)",
+    OnFailure = "ShowAlert('danger', true)",
+    OnBegin = "ShowAlert('primary', false)",
+    OnComplete = "HideAlert('primary')"
+}))
+{
+    <div class="row">
+        <div class="col-sm-10">
+            <div class="equipeDiv">
+                <span class="form-select form-select-sm equipeSpan">
+                    Equipe :
+                    <span class="equipe">
+                        @Html.DropDownListFor(x => x.Equipe, Model.Equipes.Select(y => new SelectListItem() { Value = y.Id.ToString(), Text = y.Equipe.ToString() }), new
+                        {
+                            @class = "form-control",
+                            style = "margin-right:100px; margin-top:-26px; margin-left:65px; height:28px",
+                            required = "required",
+                       onchange = "getService($(this).val());"
+                   })
+                    </span>
+                </span>
+
+            </div>
+            <div class="serviceDiv">
+                <span class="form-select form-select-sm serviceSpan">
+                    Service :
+                    <span class="service">
+                        @Html.DropDownListFor(x => x.Service, Model.Services.Select(y => new SelectListItem() { Value = y.Id.ToString(), Text = y.Service.ToString() }), new
+                        {
+                            @class = "form-control",
+                            id = "selectContinents",
+                            style = "margin-right:100px; margin-top:-26px; margin-left:100px; height:28px",
+                            required = "required",
+                       onchange = "getService($(this).val());"
+                   })
+                    </span>
+                </span>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row" id="alertInput">
+        @for (int i = 0; i < Model.SujetConstruction.Count; i++)
+        {
+            @Html.HiddenFor(se => Model.SujetConstruction[i].Id)
+            @Html.HiddenFor(se => Model.SujetConstruction[i].IdComptage)
+            <div class="col-sm-2">
+                <div class="card" style=" width: 186px; height: 41px; background-color: #303030;">
+                    <div class="card-body">
+                        <h5>@Model.SujetConstruction[i].LibelleSujet</h5>
+                    </div>
+                </div>
+                <div>
+                    <div class="input-group mb-3" style="width: 186px;">
+                        <span class="input-group-text">Entree :</span>
+                        @Html.TextBoxFor(se => Model.SujetConstruction[i].Entree, new { @type = "number" })
+                    </div>
+
+                    <div class="input-group mb-3" style=" width: 186px;">
+                        <span class="input-group-text">Sortie : </span>
+                        @Html.TextBoxFor(se => Model.SujetConstruction[i].Sortie, new { @type = "number" })
+
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+    <div class="row col-12" style="margin-top: 20px; text-align: center; margin-right: 259px;">
+        <button type="submit" style="margin-left: -209px" class="btn btn-success Btn">Sauvegarder</button>
+        <input type="button" value="Visualiser le rapport BI" class="btn btn-default Btn" onclick="OpenRapport('@Model.DateModif.ToShortDateString()', '@Model.Titre', '@Model.ServiceNom',  '@Model.EquipeNom', '@Model.NomCollaborateur');">
+    </div>
+
+    <div class="col-md-8 alert alert-success alert-dismissible" role="alert" style="display:none;">
+        <button type="button" class="close" onclick="HideAlert()">&times;</button>
+        <strong>Succès!</strong> Les informations ont bien été sauvegardées.
+    </div>
+    <div class="col-md-8 alert alert-danger alert-dismissible" role="alert" style="display:none;">
+        <button type="button" class="close" onclick="HideAlert()">&times;</button>
+        <strong>Erreur!</strong> Un problème est survenu pendant la sauvegarde.
+    </div>
+    <div class="col-md-8 alert alert-primary alert-dismissible" role="alert" style="display:none;">
+        <button type="button" class="close" onclick="HideAlert()">&times;</button>
+        <strong>Info!</strong> La sauvegarde est en cours.
+    </div>
+
+    @Html.HiddenFor(se => Model.Id)
+    @Html.HiddenFor(se => Model.Titre)
+    @Html.HiddenFor(se => Model.DateModif)
+    @Html.HiddenFor(se => Model.Equipe, new { @id = "EquipeId" })
+<input type="hidden" id="alertHidden" value="false" />
+}
+
+
+
+
+

@@ -1,0 +1,65 @@
+﻿body {
+}
+.service {
+    font-size: 19px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+    color: dimgrey;
+    white-space: nowrap
+}
+.serviceSpan {
+    font-size: 15px;
+    margin-left: 36px;
+    border-bottom-right-radius: inherit;
+    white-space: nowrap;
+}
+.serviceDiv {
+    margin-top: -66px;
+    margin-bottom: 25px;
+    margin-left: 244px;
+    line-height: inherit;
+    width: 181px;
+    height: 41px;
+    padding-top: 12px;
+    white-space: nowrap;
+}
+.equipe {
+    font-size: 19px;
+    font-family: 'Franklin Gothic Medium', 'Arial Narrow', 'Arial', 'sans-serif';
+    color: dimgrey;
+    white-space: nowrap;
+}
+
+.equipeSpan {
+    font-size: 15px;
+    margin-left: -112px;
+    border-bottom-right-radius: inherit;
+    white-space: nowrap;
+}
+
+.equipeDiv {
+    margin-top: 31px;
+    margin-bottom: 25px;
+    margin-left: 2px;
+    line-height: inherit;
+    width: 181px;
+    height: 41px;
+    padding-top: 12px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+h5 {
+    font-size: 13px;
+    text-align: center;
+    padding-top: 11px;
+    color: white;
+}
+
+.Btn {
+    width: 194px;
+    height: 44px;
+    margin-top: 20px;
+    font-size: 17px;
+}
+
+

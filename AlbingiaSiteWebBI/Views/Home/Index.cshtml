@@ -1,0 +1,29 @@
+﻿@model AlbingiaSiteWebBI.Models.ModelHome
+@{
+    ViewData["Title"] = "Accueil";
+}
+<h2>@ViewBag.Titre</h2>
+
+@using (Html.BeginForm("Valider", "Home", FormMethod.Post))
+{
+    <div class="col-md-4">
+        <label for="validationCustom01" class="form-label classLabel">Selectionner la direction :</label>
+        @Html.DropDownListFor(x => x.Branche, Model.Branches.Select(y => new SelectListItem() { Value = y, Text = y }), "Selectionner une direction", new { @class = "form-control", required = "required", onchange = "getCollaborateur($(this).val());" })
+    </div>
+    <div class="col-md-4">
+        <label for="validationCustom02" class="form-label classLabel">Selectionner le collaborateur :</label>
+        @Html.DropDownListFor(x => x.Collaborateur, Model.Collabs.Select(y => new SelectListItem() { Value = y.IdCollaborateur.ToString(), Text = $"{y.Prenom} {y.Nom}" }), "Selectionner un collaborateur", new { @class = "form-control", required = "required" })
+    </div>
+    <div class="col-md-4">
+        <label for="validationCustomUsername" class="form-label classLabel">Selectionner la date :</label>
+        @Html.TextBoxFor(x => x.Date, new { @class = "form-control datepicker", @Value = Model.Date.ToShortDateString() })
+    </div>
+
+    <div class="col-12" style="margin-top:250px; margin-left:486px">
+        <button class="btn btn-success classBtn">Valider</button>
+    </div>
+}
+
+<script src="https://ajax.aspnetcdn.com/ajax/jquery/jquery-3.3.1.min.js"></script>
+
+

@@ -1,0 +1,89 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="ALB_APPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="IND_COLLABORATEUR">
+    <Key>
+      <PropertyRef Name="COL_ID" />
+    </Key>
+    <Property Name="COL_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="COL_BRANCHE" Type="nvarchar" MaxLength="50" />
+    <Property Name="COL_SERVICE" Type="nvarchar" MaxLength="50" />
+    <Property Name="COL_EQUIPE" Type="nvarchar" MaxLength="50" />
+    <Property Name="COL_NOM" Type="nvarchar" MaxLength="50" />
+    <Property Name="COL_PRENOM" Type="nvarchar" MaxLength="50" />
+    <Property Name="COL_ADRESSE_MAIL" Type="nvarchar" MaxLength="50" />
+    <Property Name="Loading_Date" Type="datetime" />
+    <Property Name="COL_TRI" Type="int" />
+    <Property Name="COL_LIBELLE_COURT" Type="nvarchar" MaxLength="50" />
+    <Property Name="indicateur" Type="int" />
+  </EntityType>
+  <EntityType Name="IND_COMPTAGE_TACHE">
+    <Key>
+      <PropertyRef Name="ICT_ID" />
+    </Key>
+    <Property Name="ICT_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="ICT_ID_COLLABORATEUR" Type="bigint" />
+    <Property Name="ICT_ID_SUJET" Type="bigint" />
+    <Property Name="ICT_DATE" Type="date" />
+    <Property Name="ICT_STOCK_INITIAL" Type="int" />
+    <Property Name="ICT_STOCK_FINAL" Type="int" />
+    <Property Name="ICT_ENTREE" Type="int" />
+    <Property Name="ICT_SORTIE" Type="int" />
+    <Property Name="ICT_DATE_CREATION" Type="datetime" />
+    <Property Name="ICT_DATE_MODIFICATION" Type="datetime" />
+    <Property Name="ICT_CREATEUR" Type="nvarchar" MaxLength="255" />
+    <Property Name="ICT_MODIFICATEUR" Type="nvarchar" MaxLength="255" />
+    <Property Name="Loading_Date" Type="datetime" />
+  </EntityType>
+  <EntityType Name="IND_SUJET">
+    <Key>
+      <PropertyRef Name="SUJ_ID" />
+    </Key>
+    <Property Name="SUJ_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="SUJ_LIBELLE" Type="nvarchar" MaxLength="50" />
+    <Property Name="SUJ_BRANCHE" Type="nvarchar" MaxLength="50" />
+    <Property Name="SUJ_TRI" Type="int" />
+    <Property Name="Loading_Date" Type="datetime" />
+    <Property Name="COL_SERVICE" Type="nvarchar" MaxLength="50" />
+  </EntityType>
+  <Association Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1">
+    <End Role="IND_COLLABORATEUR" Type="Self.IND_COLLABORATEUR" Multiplicity="0..1" />
+    <End Role="IND_COMPTAGE_TACHE" Type="Self.IND_COMPTAGE_TACHE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IND_COLLABORATEUR">
+        <PropertyRef Name="COL_ID" />
+      </Principal>
+      <Dependent Role="IND_COMPTAGE_TACHE">
+        <PropertyRef Name="ICT_ID_COLLABORATEUR" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_IND_COMPTAGE_TACHE_IND_SUJET">
+    <End Role="IND_SUJET" Type="Self.IND_SUJET" Multiplicity="0..1" />
+    <End Role="IND_COMPTAGE_TACHE" Type="Self.IND_COMPTAGE_TACHE" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="IND_SUJET">
+        <PropertyRef Name="SUJ_ID" />
+      </Principal>
+      <Dependent Role="IND_COMPTAGE_TACHE">
+        <PropertyRef Name="ICT_ID_SUJET" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="Mise_A_Jour_Apres_Validation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="ID_COLLAB" Type="bigint" Mode="In" />
+    <Parameter Name="DATE_DEBUT" Type="date" Mode="In" />
+  </Function>
+  <EntityContainer Name="ALB_APPModelStoreContainer">
+    <EntitySet Name="IND_COLLABORATEUR" EntityType="Self.IND_COLLABORATEUR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IND_COMPTAGE_TACHE" EntityType="Self.IND_COMPTAGE_TACHE" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="IND_SUJET" EntityType="Self.IND_SUJET" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1" Association="Self.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1">
+      <End Role="IND_COLLABORATEUR" EntitySet="IND_COLLABORATEUR" />
+      <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+    </AssociationSet>
+    <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_SUJET" Association="Self.FK_IND_COMPTAGE_TACHE_IND_SUJET">
+      <End Role="IND_SUJET" EntitySet="IND_SUJET" />
+      <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

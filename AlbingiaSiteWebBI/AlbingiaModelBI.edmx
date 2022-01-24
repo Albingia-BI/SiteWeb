@@ -1,0 +1,266 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="ALB_APPModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2008" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="IND_COLLABORATEUR">
+          <Key>
+            <PropertyRef Name="COL_ID" />
+          </Key>
+          <Property Name="COL_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="COL_BRANCHE" Type="nvarchar" MaxLength="50" />
+          <Property Name="COL_SERVICE" Type="nvarchar" MaxLength="50" />
+          <Property Name="COL_EQUIPE" Type="nvarchar" MaxLength="50" />
+          <Property Name="COL_NOM" Type="nvarchar" MaxLength="50" />
+          <Property Name="COL_PRENOM" Type="nvarchar" MaxLength="50" />
+          <Property Name="COL_ADRESSE_MAIL" Type="nvarchar" MaxLength="50" />
+          <Property Name="Loading_Date" Type="datetime" />
+          <Property Name="COL_TRI" Type="int" />
+          <Property Name="COL_LIBELLE_COURT" Type="nvarchar" MaxLength="50" />
+          <Property Name="indicateur" Type="int" />
+        </EntityType>
+        <EntityType Name="IND_COMPTAGE_TACHE">
+          <Key>
+            <PropertyRef Name="ICT_ID" />
+          </Key>
+          <Property Name="ICT_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ICT_ID_COLLABORATEUR" Type="bigint" />
+          <Property Name="ICT_ID_SUJET" Type="bigint" />
+          <Property Name="ICT_DATE" Type="date" />
+          <Property Name="ICT_STOCK_INITIAL" Type="int" />
+          <Property Name="ICT_STOCK_FINAL" Type="int" />
+          <Property Name="ICT_ENTREE" Type="int" />
+          <Property Name="ICT_SORTIE" Type="int" />
+          <Property Name="ICT_DATE_CREATION" Type="datetime" />
+          <Property Name="ICT_DATE_MODIFICATION" Type="datetime" />
+          <Property Name="ICT_CREATEUR" Type="nvarchar" MaxLength="255" />
+          <Property Name="ICT_MODIFICATEUR" Type="nvarchar" MaxLength="255" />
+          <Property Name="Loading_Date" Type="datetime" />
+        </EntityType>
+        <EntityType Name="IND_SUJET">
+          <Key>
+            <PropertyRef Name="SUJ_ID" />
+          </Key>
+          <Property Name="SUJ_ID" Type="bigint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="SUJ_LIBELLE" Type="nvarchar" MaxLength="50" />
+          <Property Name="SUJ_BRANCHE" Type="nvarchar" MaxLength="50" />
+          <Property Name="SUJ_TRI" Type="int" />
+          <Property Name="Loading_Date" Type="datetime" />
+          <Property Name="COL_SERVICE" Type="nvarchar" MaxLength="50" />
+        </EntityType>
+        <Association Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1">
+          <End Role="IND_COLLABORATEUR" Type="Self.IND_COLLABORATEUR" Multiplicity="0..1" />
+          <End Role="IND_COMPTAGE_TACHE" Type="Self.IND_COMPTAGE_TACHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IND_COLLABORATEUR">
+              <PropertyRef Name="COL_ID" />
+            </Principal>
+            <Dependent Role="IND_COMPTAGE_TACHE">
+              <PropertyRef Name="ICT_ID_COLLABORATEUR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IND_COMPTAGE_TACHE_IND_SUJET">
+          <End Role="IND_SUJET" Type="Self.IND_SUJET" Multiplicity="0..1" />
+          <End Role="IND_COMPTAGE_TACHE" Type="Self.IND_COMPTAGE_TACHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IND_SUJET">
+              <PropertyRef Name="SUJ_ID" />
+            </Principal>
+            <Dependent Role="IND_COMPTAGE_TACHE">
+              <PropertyRef Name="ICT_ID_SUJET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Function Name="Mise_A_Jour_Apres_Validation" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="ID_COLLAB" Type="bigint" Mode="In" />
+          <Parameter Name="DATE_DEBUT" Type="date" Mode="In" />
+        </Function>
+        <EntityContainer Name="ALB_APPModelStoreContainer">
+          <EntitySet Name="IND_COLLABORATEUR" EntityType="Self.IND_COLLABORATEUR" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IND_COMPTAGE_TACHE" EntityType="Self.IND_COMPTAGE_TACHE" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="IND_SUJET" EntityType="Self.IND_SUJET" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1" Association="Self.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR1">
+            <End Role="IND_COLLABORATEUR" EntitySet="IND_COLLABORATEUR" />
+            <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_SUJET" Association="Self.FK_IND_COMPTAGE_TACHE_IND_SUJET">
+            <End Role="IND_SUJET" EntitySet="IND_SUJET" />
+            <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="ALB_APPModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityContainer Name="ALB_APPEntities" annotation:LazyLoadingEnabled="true">
+          <FunctionImport Name="Mise_A_Jour_Apres_Validation">
+            <Parameter Name="ID_COLLAB" Mode="In" Type="Int64" />
+            <Parameter Name="DATE_DEBUT" Mode="In" Type="DateTime" />
+          </FunctionImport>
+          <EntitySet Name="IND_COLLABORATEUR" EntityType="ALB_APPModel.IND_COLLABORATEUR" />
+          <EntitySet Name="IND_SUJET" EntityType="ALB_APPModel.IND_SUJET" />
+          <EntitySet Name="IND_COMPTAGE_TACHE" EntityType="ALB_APPModel.IND_COMPTAGE_TACHE" />
+          <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR" Association="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR">
+            <End Role="IND_COLLABORATEUR" EntitySet="IND_COLLABORATEUR" />
+            <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+          </AssociationSet>
+          <AssociationSet Name="FK_IND_COMPTAGE_TACHE_IND_SUJET" Association="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_SUJET">
+            <End Role="IND_SUJET" EntitySet="IND_SUJET" />
+            <End Role="IND_COMPTAGE_TACHE" EntitySet="IND_COMPTAGE_TACHE" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="IND_COLLABORATEUR">
+          <Key>
+            <PropertyRef Name="COL_ID" />
+          </Key>
+          <Property Name="COL_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="COL_BRANCHE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COL_SERVICE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COL_EQUIPE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COL_NOM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COL_PRENOM" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="COL_ADRESSE_MAIL" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="Loading_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IND_COMPTAGE_TACHE" Relationship="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR" FromRole="IND_COLLABORATEUR" ToRole="IND_COMPTAGE_TACHE" />
+          <Property Name="COL_LIBELLE_COURT" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="indicateur" Type="Int32" />
+          <Property Name="COL_TRI" Type="Int32" />
+        </EntityType>
+        <EntityType Name="IND_SUJET">
+          <Key>
+            <PropertyRef Name="SUJ_ID" />
+          </Key>
+          <Property Name="SUJ_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="SUJ_LIBELLE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SUJ_BRANCHE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+          <Property Name="SUJ_TRI" Type="Int32" />
+          <Property Name="Loading_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IND_COMPTAGE_TACHE" Relationship="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_SUJET" FromRole="IND_SUJET" ToRole="IND_COMPTAGE_TACHE" />
+          <Property Name="COL_SERVICE" Type="String" MaxLength="50" FixedLength="false" Unicode="true" />
+        </EntityType>
+        <EntityType Name="IND_COMPTAGE_TACHE">
+          <Key>
+            <PropertyRef Name="ICT_ID" />
+          </Key>
+          <Property Name="ICT_ID" Type="Int64" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="ICT_ID_COLLABORATEUR" Type="Int64" />
+          <Property Name="ICT_ID_SUJET" Type="Int64" />
+          <Property Name="ICT_DATE" Type="DateTime" Precision="0" />
+          <Property Name="ICT_STOCK_INITIAL" Type="Int32" />
+          <Property Name="ICT_STOCK_FINAL" Type="Int32" />
+          <Property Name="ICT_ENTREE" Type="Int32" />
+          <Property Name="ICT_SORTIE" Type="Int32" />
+          <Property Name="ICT_DATE_CREATION" Type="DateTime" Precision="3" />
+          <Property Name="ICT_DATE_MODIFICATION" Type="DateTime" Precision="3" />
+          <Property Name="ICT_CREATEUR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="ICT_MODIFICATEUR" Type="String" MaxLength="255" FixedLength="false" Unicode="true" />
+          <Property Name="Loading_Date" Type="DateTime" Precision="3" />
+          <NavigationProperty Name="IND_COLLABORATEUR" Relationship="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR" FromRole="IND_COMPTAGE_TACHE" ToRole="IND_COLLABORATEUR" />
+          <NavigationProperty Name="IND_SUJET" Relationship="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_SUJET" FromRole="IND_COMPTAGE_TACHE" ToRole="IND_SUJET" />
+        </EntityType>
+        <Association Name="FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR">
+          <End Type="ALB_APPModel.IND_COLLABORATEUR" Role="IND_COLLABORATEUR" Multiplicity="0..1" />
+          <End Type="ALB_APPModel.IND_COMPTAGE_TACHE" Role="IND_COMPTAGE_TACHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IND_COLLABORATEUR">
+              <PropertyRef Name="COL_ID" />
+            </Principal>
+            <Dependent Role="IND_COMPTAGE_TACHE">
+              <PropertyRef Name="ICT_ID_COLLABORATEUR" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_IND_COMPTAGE_TACHE_IND_SUJET">
+          <End Type="ALB_APPModel.IND_SUJET" Role="IND_SUJET" Multiplicity="0..1" />
+          <End Type="ALB_APPModel.IND_COMPTAGE_TACHE" Role="IND_COMPTAGE_TACHE" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="IND_SUJET">
+              <PropertyRef Name="SUJ_ID" />
+            </Principal>
+            <Dependent Role="IND_COMPTAGE_TACHE">
+              <PropertyRef Name="ICT_ID_SUJET" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="ALB_APPModelStoreContainer" CdmEntityContainer="ALB_APPEntities">
+          <FunctionImportMapping FunctionImportName="Mise_A_Jour_Apres_Validation" FunctionName="ALB_APPModel.Store.Mise_A_Jour_Apres_Validation" />
+          <EntitySetMapping Name="IND_COLLABORATEUR">
+            <EntityTypeMapping TypeName="ALB_APPModel.IND_COLLABORATEUR">
+              <MappingFragment StoreEntitySet="IND_COLLABORATEUR">
+                <ScalarProperty Name="COL_TRI" ColumnName="COL_TRI" />
+                <ScalarProperty Name="indicateur" ColumnName="indicateur" />
+                <ScalarProperty Name="COL_LIBELLE_COURT" ColumnName="COL_LIBELLE_COURT" />
+                <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+                <ScalarProperty Name="COL_ADRESSE_MAIL" ColumnName="COL_ADRESSE_MAIL" />
+                <ScalarProperty Name="COL_PRENOM" ColumnName="COL_PRENOM" />
+                <ScalarProperty Name="COL_NOM" ColumnName="COL_NOM" />
+                <ScalarProperty Name="COL_EQUIPE" ColumnName="COL_EQUIPE" />
+                <ScalarProperty Name="COL_SERVICE" ColumnName="COL_SERVICE" />
+                <ScalarProperty Name="COL_BRANCHE" ColumnName="COL_BRANCHE" />
+                <ScalarProperty Name="COL_ID" ColumnName="COL_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IND_SUJET">
+            <EntityTypeMapping TypeName="ALB_APPModel.IND_SUJET">
+              <MappingFragment StoreEntitySet="IND_SUJET">
+                <ScalarProperty Name="COL_SERVICE" ColumnName="COL_SERVICE" />
+                <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+                <ScalarProperty Name="SUJ_TRI" ColumnName="SUJ_TRI" />
+                <ScalarProperty Name="SUJ_BRANCHE" ColumnName="SUJ_BRANCHE" />
+                <ScalarProperty Name="SUJ_LIBELLE" ColumnName="SUJ_LIBELLE" />
+                <ScalarProperty Name="SUJ_ID" ColumnName="SUJ_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="IND_COMPTAGE_TACHE">
+            <EntityTypeMapping TypeName="ALB_APPModel.IND_COMPTAGE_TACHE">
+              <MappingFragment StoreEntitySet="IND_COMPTAGE_TACHE">
+                <ScalarProperty Name="Loading_Date" ColumnName="Loading_Date" />
+                <ScalarProperty Name="ICT_MODIFICATEUR" ColumnName="ICT_MODIFICATEUR" />
+                <ScalarProperty Name="ICT_CREATEUR" ColumnName="ICT_CREATEUR" />
+                <ScalarProperty Name="ICT_DATE_MODIFICATION" ColumnName="ICT_DATE_MODIFICATION" />
+                <ScalarProperty Name="ICT_DATE_CREATION" ColumnName="ICT_DATE_CREATION" />
+                <ScalarProperty Name="ICT_SORTIE" ColumnName="ICT_SORTIE" />
+                <ScalarProperty Name="ICT_ENTREE" ColumnName="ICT_ENTREE" />
+                <ScalarProperty Name="ICT_STOCK_FINAL" ColumnName="ICT_STOCK_FINAL" />
+                <ScalarProperty Name="ICT_STOCK_INITIAL" ColumnName="ICT_STOCK_INITIAL" />
+                <ScalarProperty Name="ICT_DATE" ColumnName="ICT_DATE" />
+                <ScalarProperty Name="ICT_ID_SUJET" ColumnName="ICT_ID_SUJET" />
+                <ScalarProperty Name="ICT_ID_COLLABORATEUR" ColumnName="ICT_ID_COLLABORATEUR" />
+                <ScalarProperty Name="ICT_ID" ColumnName="ICT_ID" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="True" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="true" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Aucun" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="ceca69bd16a346c486238cb21cf33e4f" Name="Diagram1">
+        <EntityTypeShape EntityType="ALB_APPModel.IND_COLLABORATEUR" Width="1.5" PointX="0.75" PointY="5.625" />
+        <EntityTypeShape EntityType="ALB_APPModel.IND_SUJET" Width="1.5" PointX="0.75" PointY="1.875" />
+        <EntityTypeShape EntityType="ALB_APPModel.IND_COMPTAGE_TACHE" Width="1.5" PointX="3" PointY="1" />
+        <AssociationConnector Association="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_COLLABORATEUR" />
+        <AssociationConnector Association="ALB_APPModel.FK_IND_COMPTAGE_TACHE_IND_SUJET" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
